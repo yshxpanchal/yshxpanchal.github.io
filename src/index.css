@@ -1,0 +1,327 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   Theme tokens. Values are space-separated RGB triplets so Tailwind can
+   add opacity (text-white/60, bg-white/[0.02] ...). Dark is the default;
+   html[data-theme='light'] swaps them. See also src/lib/theme.js.
+------------------------------------------------------------------- */
+:root {
+  color-scheme: dark;
+  --bg: 0 0 0;
+  --panel: 10 15 23;
+  --white: 255 255 255;
+  --slate-100: 241 245 249;
+  --slate-200: 226 232 240;
+  --slate-300: 203 213 225;
+  --slate-400: 148 163 184;
+  --slate-500: 100 116 139;
+  --slate-600: 71 85 105;
+  --emerald-200: 167 243 208;
+  --emerald-300: 110 231 183;
+  --emerald-400: 52 211 153;
+  --teal-200: 153 246 228;
+  --teal-300: 94 234 212;
+  --blue-300: 147 197 253;
+  --blue-400: 96 165 250;
+  --body-text: 203 213 225;
+  --glow-a: 0 224 164;
+  --glow-b: 59 130 246;
+  --glow-k: 1;
+  --scroll-thumb: 27 37 54;
+  --scroll-thumb-hover: 42 58 82;
+  --loader-dim: 63 74 90;
+  --loader-hi: 0 224 164;
+  --grid-line: 0 224 164;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: 244 247 251;
+  --panel: 255 255 255;
+  --white: 15 23 42;
+  --slate-100: 15 23 42;
+  --slate-200: 30 41 59;
+  --slate-300: 51 65 85;
+  --slate-400: 71 85 105;
+  --slate-500: 100 116 139;
+  --slate-600: 148 163 184;
+  --emerald-200: 6 95 70;
+  --emerald-300: 4 120 87;
+  --emerald-400: 5 150 105;
+  --teal-200: 15 118 110;
+  --teal-300: 13 148 136;
+  --blue-300: 37 99 235;
+  --blue-400: 59 130 246;
+  --body-text: 51 65 85;
+  --glow-a: 16 185 129;
+  --glow-b: 59 130 246;
+  --glow-k: 1.9;
+  --scroll-thumb: 203 213 225;
+  --scroll-thumb-hover: 148 163 184;
+  --loader-dim: 148 163 184;
+  --loader-hi: 5 150 105;
+  --grid-line: 5 150 105;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    position: relative;
+    isolation: isolate;
+    background-color: rgb(var(--bg));
+    color: rgb(var(--body-text));
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: #00e0a4; color: #04070c; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: rgb(var(--bg)); }
+  ::-webkit-scrollbar-thumb { background: rgb(var(--scroll-thumb)); border-radius: 8px; border: 2px solid rgb(var(--bg)); }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--scroll-thumb-hover)); }
+  section { scroll-margin-top: 0; }
+
+  @keyframes hero-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Soft enter / exit for overlays (certificate modal, terminal). See src/lib/usePresence.js */
+  @keyframes ui-fade-in  { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes ui-fade-out { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes ui-pop-in {
+    from { opacity: 0; transform: translateY(14px) scale(.975); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes ui-pop-out {
+    from { opacity: 1; transform: none; }
+    to   { opacity: 0; transform: translateY(8px) scale(.985); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12; }
+  .glass { @apply border border-white/[0.07] bg-white/[0.02] backdrop-blur-xl; }
+  .card { @apply glass rounded-2xl; }
+  .card-hover {
+    @apply transition duration-500 hover:border-emerald-400/30 hover:bg-white/[0.04]
+      hover:shadow-[0_0_40px_-12px_rgba(0,224,164,0.45)];
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium
+      transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60;
+  }
+  .btn-primary {
+    @apply btn bg-emerald-400 text-slate-950 shadow-[0_0_30px_-10px_rgba(0,224,164,0.9)] hover:bg-emerald-300;
+  }
+  .btn-ghost {
+    @apply btn border border-white/10 bg-white/[0.02] text-slate-200
+      hover:border-emerald-400/40 hover:text-emerald-300;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-emerald-400/20
+      bg-emerald-400/[0.06] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.22em] text-emerald-300;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-md border border-white/[0.07] bg-white/[0.03]
+      px-2.5 py-1 text-xs text-slate-300 transition
+      hover:border-emerald-400/30 hover:text-emerald-200;
+  }
+  .section-title { @apply font-display text-3xl font-bold tracking-tight text-white sm:text-4xl; }
+  .section-lead { @apply mt-4 max-w-2xl text-slate-400; }
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0);
+    transition: opacity .95s cubic-bezier(.22,1,.36,1), transform 1.1s cubic-bezier(.22,1,.36,1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible { opacity: 1; transform: translate3d(0, 0, 0); }
+  /* Set by Reveal.jsx after the entrance finishes, so finished blocks stop holding GPU layers. */
+  .reveal.is-done { will-change: auto; }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgb(var(--grid-line) / .06) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--grid-line) / .06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow-text { text-shadow: 0 0 24px rgba(0,224,164,.45); }
+  .ui-backdrop[data-state='open']  { animation: ui-fade-in .4s cubic-bezier(.25,.8,.25,1) both; }
+  .ui-backdrop[data-state='closed'] { animation: ui-fade-out .32s cubic-bezier(.4,0,.6,1) both; pointer-events: none; }
+  .ui-panel[data-state='open']  { animation: ui-pop-in .5s cubic-bezier(.22,1,.36,1) both; }
+  .ui-panel[data-state='closed'] { animation: ui-pop-out .32s cubic-bezier(.4,0,.6,1) both; }
+}
+
+@layer base {
+  body {
+    background: rgb(var(--bg));
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+    mix-blend-mode: screen;
+  }
+}
+
+@layer components {
+  .section-shell { @apply relative overflow-hidden; }
+  /* Every section fills exactly one screen, so the next section never peeks in underneath. */
+  .section-full {
+    @apply relative flex flex-col justify-center pb-16 pt-24 sm:pt-28;
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+  .navbar-scrolled {
+    background-color: rgb(var(--bg) / 0.82);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+  }
+  .card-soft {
+    @apply border border-white/[0.06] bg-white/[0.018] backdrop-blur-xl;
+    box-shadow: 0 24px 70px -45px rgba(0,0,0,.8);
+  }
+  .card-hover { transform: translateZ(0); }
+  .card-hover:hover { transform: translateY(-3px); }
+}
+
+@layer components {
+  .portfolio-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(var(--bg));
+    pointer-events: auto;
+    animation: portfolio-loader-out .75s cubic-bezier(.4,0,.2,1) 1.6s forwards;
+  }
+
+  .portfolio-loader__text {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: .01em;
+    color: transparent;
+    background: linear-gradient(
+      90deg,
+      rgb(var(--loader-dim)) 0%,
+      rgb(var(--loader-dim)) 35%,
+      rgb(var(--loader-hi)) 50%,
+      rgb(var(--loader-dim)) 65%,
+      rgb(var(--loader-dim)) 100%
+    );
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: portfolio-shimmer 1s linear infinite;
+  }
+
+  @keyframes portfolio-shimmer {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+  }
+
+  @keyframes portfolio-loader-out {
+    to {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .portfolio-loader {
+      animation-duration: .25s;
+      animation-delay: 0s;
+    }
+    .portfolio-loader__text {
+      animation: none;
+      color: rgb(var(--loader-hi));
+      background: none;
+    }
+  }
+}
+
+
+/* Hero network surface: dark mode is intentionally pure black.
+   Light mode keeps the portfolio's existing light theme surface. */
+.hero-network-section {
+  background: #000;
+}
+html[data-theme='light'] .hero-network-section {
+  background: rgb(var(--bg));
+}
+
+/* ------------------------------------------------------------------
+   Light-mode refinements (things the colour tokens alone can't express).
+   :where() keeps specificity low so utility classes like bg-bg/95 still win.
+------------------------------------------------------------------- */
+:where(html[data-theme='light']) .glass,
+:where(html[data-theme='light']) .card,
+:where(html[data-theme='light']) .card-soft {
+  background-color: rgb(255 255 255 / 0.72);
+  box-shadow: 0 18px 50px -30px rgb(15 23 42 / 0.28);
+}
+html[data-theme='light'] .card-hover:hover {
+  background-color: rgb(255 255 255 / 0.96);
+  box-shadow: 0 22px 54px -24px rgb(5 150 105 / 0.38);
+}
+html[data-theme='light'] [role='dialog'].card { background-color: rgb(255 255 255 / 0.98); }
+html[data-theme='light'] .btn-primary {
+  color: #fff;
+  box-shadow: 0 10px 28px -12px rgb(5 150 105 / 0.7);
+}
+html[data-theme='light'] .btn-ghost,
+html[data-theme='light'] .chip { background-color: rgb(255 255 255 / 0.65); }
+html[data-theme='light'] .glow-text { text-shadow: none; }
+html[data-theme='light'] body::before { mix-blend-mode: multiply; opacity: 0.05; }
+
+/* Theme switch: reveal the new palette from the control that triggered it.
+   Keeping both snapshots opaque avoids the low-contrast colour blending of a cross-fade. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: theme-reveal 700ms cubic-bezier(.22, 1, .36, 1) both;
+}
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0 at var(--theme-reveal-x, 50vw) var(--theme-reveal-y, 50vh));
+  }
+  to {
+    clip-path: circle(var(--theme-reveal-radius, 150vmax) at var(--theme-reveal-x, 50vw) var(--theme-reveal-y, 50vh));
+  }
+}
+
+/* While the switch runs, freeze every other transition so nothing keeps fading inside the new view.
+   The sun/moon icons are excluded so their own swap still animates. */
+html.theme-vt *:not([data-theme-icon]),
+html.theme-vt *:not([data-theme-icon])::before,
+html.theme-vt *:not([data-theme-icon])::after {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) { animation-duration: 0.01ms; }
+}

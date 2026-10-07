@@ -51,28 +51,25 @@ npm run preview
 
 ## Deploy to GitHub Pages
 
-The GitHub Actions workflow builds the site and deploys it to GitHub Pages whenever
-you push to the `main` branch.
+This project is configured for manual deployment from the `docs` folder on the
+`main` branch.
 
-1. Create a GitHub repository. For a personal site at
-   `https://YOUR-USERNAME.github.io`, name it `YOUR-USERNAME.github.io`.
-   Otherwise, choose any repository name; the site URL will be
-   `https://YOUR-USERNAME.github.io/REPOSITORY-NAME`.
-2. In the repository, open **Settings → Pages** and set the build and deployment
-   source to **GitHub Actions**.
-3. From this project folder, connect the repository and push the project:
+1. Build the website locally:
 
    ```bash
-   git init
-   git add .
-   git commit -m "Initial portfolio"
-   git branch -M main
-   git remote add origin https://github.com/YOUR-USERNAME/REPOSITORY-NAME.git
-   git push -u origin main
+   npm install
+   npm run build
    ```
 
-   Replace `YOUR-USERNAME` and `REPOSITORY-NAME` with your GitHub details. Do not
-   include `node_modules` or `dist`; both are excluded from Git.
-4. Open the repository's **Actions** tab and wait for the Pages deployment
-   workflow to finish. Your site will then be available at the URL for the
-   repository type you chose above. Future pushes to `main` deploy automatically.
+   This creates the production website in `docs/`.
+2. Upload or push the project files, including the generated `docs/` folder, to
+   the `main` branch of your `yashpanchal.github.io` repository. Do not upload
+   `node_modules`.
+3. In the GitHub repository, open **Settings → Pages**. Under **Build and
+   deployment**, select **Deploy from a branch**, choose `main` and `/docs`, and
+   save.
+4. After GitHub Pages publishes the site, it will be available at
+   `https://yashpanchal.github.io/`.
+
+For later updates, run `npm run build` again and upload/push the changed project
+files and refreshed `docs/` folder to `main`.

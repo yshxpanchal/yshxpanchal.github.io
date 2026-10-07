@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#04070c" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="description" content="Yash Panchal — Cybersecurity Trainee, B.Tech IT Graduate, aspiring SOC Analyst, and networking enthusiast. Explore projects, certifications, skills, education, and experience." />
+    <meta name="author" content="Yash Panchal" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Yash Panchal" />
+    <meta property="og:description" content="Cybersecurity Trainee, B.Tech IT Graduate, aspiring SOC Analyst, and networking enthusiast." />
+    <meta property="og:image" content="/og-image.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <title>Yash Panchal</title>
+    <script>
+      // Runs before first paint: apply saved theme + desktop/mobile view (no flash).
+      // Theme mirrors src/lib/theme.js. View: if the browser is in "Desktop site" mode on a phone,
+      // ask for a 1280px layout so the desktop layout renders (otherwise normal responsive).
+      (function () {
+        var d = document.documentElement;
+        var theme = 'dark';
+        try {
+          theme = localStorage.getItem('portfolio-theme') === 'light' ? 'light' : 'dark';
+        } catch (e) {}
+        d.setAttribute('data-theme', theme);
+        d.style.colorScheme = theme;
+        var tc = document.querySelector('meta[name="theme-color"]');
+        if (tc) tc.setAttribute('content', theme === 'light' ? '#f4f7fb' : '#04070c');
+
+        var ua = navigator.userAgent || '';
+        var mobileUA = /Mobi|iPhone|iPod|Android.+Mobile/i.test(ua);
+        var small = Math.min(screen.width, screen.height) < 700;
+        var view = !mobileUA && navigator.maxTouchPoints > 0 && small ? 'desktop' : 'mobile';
+        d.setAttribute('data-view', view);
+        var vp = document.querySelector('meta[name="viewport"]');
+        if (vp) vp.setAttribute('content', view === 'desktop' ? 'width=1280' : 'width=device-width, initial-scale=1.0');
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index-C8IFXfA7.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-v1l85iAd.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

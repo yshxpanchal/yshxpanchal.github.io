@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Download, Menu, X } from 'lucide-react';
+import { ExternalLink, Menu, X } from 'lucide-react';
 import { navLinks, profile } from '../data/portfolio';
 import { scrollToSection, isAutoScrolling } from '../lib/scroll';
 import BrandIcon from './BrandIcon';
@@ -89,7 +89,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           {profile.resumeUrl ? (
-            <a href={profile.resumeUrl} download className="btn-ghost hidden text-xs sm:inline-flex">Resume</a>
+            <a href={profile.resumeUrl} target="_blank" rel="noopener noreferrer" className="btn-ghost hidden text-xs sm:inline-flex">Resume</a>
           ) : (
             <span className="btn-ghost hidden cursor-not-allowed text-xs opacity-50 sm:inline-flex">Resume</span>
           )}
@@ -186,8 +186,8 @@ export default function Navbar() {
           </div>
 
           {profile.resumeUrl ? (
-            <a href={profile.resumeUrl} download className="btn-primary h-[42px] w-full text-[13px]">
-              <Download size={14} /> Download Resume
+            <a href={profile.resumeUrl} target="_blank" rel="noopener noreferrer" className="btn-primary h-[42px] w-full text-[13px]">
+              <ExternalLink size={14} /> View Resume
             </a>
           ) : (
             <span className="btn-primary h-[42px] w-full cursor-not-allowed text-[13px] opacity-50" aria-disabled="true">

@@ -16,7 +16,7 @@ export const profile = {
   email: 'yashpanchal1662677@gmail.com',
   linkedin: 'https://www.linkedin.com/in/yash2k5',
   github: 'https://github.com/yshxpanchal',
-  resumeUrl: '',
+  resumeUrl: 'https://drive.google.com/file/d/1_ZIeTWlP0HAwh1QbxYvis1nBW3ZH-HhO/view?usp=sharing',
   location: 'Ahmedabad, India',
 };
 

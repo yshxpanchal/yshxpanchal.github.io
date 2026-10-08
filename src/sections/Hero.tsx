@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowRight, Download, MessageCircle, ShieldCheck, Cpu, Activity } from 'lucide-react';
+import { ArrowRight, ExternalLink, MessageCircle, ShieldCheck, Cpu, Activity } from 'lucide-react';
 import { profile } from '../data/portfolio';
 import BrandIcon from '../components/BrandIcon';
 import { scrollToSection } from '../lib/scroll';
@@ -69,8 +69,8 @@ export default function Hero() {
                 View Projects <ArrowRight size={16} />
               </button>
               {profile.resumeUrl ? (
-                <a href={profile.resumeUrl} download className="btn-ghost">
-                  <Download size={16} /> Download Resume
+                <a href={profile.resumeUrl} target="_blank" rel="noopener noreferrer" className="btn-ghost">
+                  <ExternalLink size={16} /> View Resume
                 </a>
               ) : (
                 <button onClick={() => scrollTo('contact')} className="btn-ghost">

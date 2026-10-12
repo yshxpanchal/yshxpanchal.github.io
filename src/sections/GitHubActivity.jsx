@@ -1,28 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
-import { BookOpen, Code2, ExternalLink, GitFork, Github, Loader2, Star } from 'lucide-react';
+import { BookOpen, Code2, ExternalLink, GitFork, Github, Star } from 'lucide-react';
 import Reveal from '../components/Reveal';
 import LinkButton from '../components/LinkButton';
-import { githubConfig } from '../data/portfolio';
-import { fetchGitHubData } from '../lib/github';
+import { githubConfig, githubData } from '../data/portfolio';
 
 export default function GitHubActivity() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    fetchGitHubData(githubConfig.username, githubConfig.apiBase)
-      .then((value) => active && setData(value))
-      .catch(() => active && setError(true));
-    return () => { active = false; };
-  }, []);
-
-  const repos = useMemo(() => {
-    if (!data?.repos) return [];
-    return data.repos
-      .filter((repo) => !repo.fork)
-      .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-  }, [data]);
+  const repos = githubData.repos
+    .filter((repo) => !repo.fork)
+    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
   return (
     <section id="projects" className="section-full overflow-hidden">
@@ -33,7 +17,7 @@ export default function GitHubActivity() {
             <div>
               <span className="eyebrow"><Github size={12} /> Projects &amp; Open Source</span>
               <h2 className="section-title mt-5">Projects, directly from GitHub.</h2>
-              <p className="section-lead">Every project shown here comes directly from my public GitHub repositories. No duplicate project list, no stale manual entries.</p>
+              <p className="section-lead">Public projects from my GitHub profile, saved with the portfolio so this section stays available without relying on live API requests.</p>
             </div>
             <LinkButton href={githubConfig.profileUrl} className="btn-ghost w-fit text-xs">
               View GitHub Profile <ExternalLink size={14} />
@@ -41,30 +25,14 @@ export default function GitHubActivity() {
           </div>
         </Reveal>
 
-        {data && (
-          <Reveal delay={80}>
-            <div className="mt-10 grid gap-4 sm:grid-cols-4">
-              <Stat label="Public repos" value={data.profile.public_repos} icon={BookOpen} />
-              <Stat label="Followers" value={data.profile.followers} icon={Github} />
-              <Stat label="Following" value={data.profile.following} icon={Code2} />
-              <Stat label="Account" value="Public" icon={Star} />
-            </div>
-          </Reveal>
-        )}
-
-        {error && (
-          <Reveal delay={80}>
-            <div className="mt-10 card border-amber-400/20 bg-amber-400/[0.03] p-5 text-sm text-slate-400">
-              GitHub is temporarily unavailable. The portfolio still works normally; refresh later to reload live repository data.
-            </div>
-          </Reveal>
-        )}
-
-        {!data && !error && (
-          <div className="mt-10 flex items-center gap-2 text-sm text-slate-500">
-            <Loader2 size={15} className="animate-spin text-emerald-300" /> Loading GitHub profile…
+        <Reveal delay={80}>
+          <div className="mt-10 grid gap-4 sm:grid-cols-4">
+            <Stat label="Public repos" value={githubData.profile.public_repos} icon={BookOpen} />
+            <Stat label="Followers" value={githubData.profile.followers} icon={Github} />
+            <Stat label="Following" value={githubData.profile.following} icon={Code2} />
+            <Stat label="Account" value="Public" icon={Star} />
           </div>
-        )}
+        </Reveal>
 
         {repos.length > 0 && (
           <div className="mt-10 grid gap-4 md:grid-cols-2">

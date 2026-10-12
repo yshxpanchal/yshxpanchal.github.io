@@ -30,7 +30,82 @@ export const aboutFacts = [
 export const githubConfig = {
   username: 'yshxpanchal',
   profileUrl: 'https://github.com/yshxpanchal',
-  apiBase: 'https://api.github.com',
+};
+
+export const githubData = {
+  profile: {
+    public_repos: 6,
+    followers: 1,
+    following: 1,
+  },
+  repos: [
+    {
+      id: 1408748606,
+      name: 'yshxpanchal.github.io',
+      html_url: 'https://github.com/yshxpanchal/yshxpanchal.github.io',
+      description: null,
+      language: 'JavaScript',
+      stargazers_count: 0,
+      forks_count: 0,
+      updated_at: '2026-10-08T06:18:27Z',
+      fork: false,
+    },
+    {
+      id: 1408568155,
+      name: 'yshxpanchal',
+      html_url: 'https://github.com/yshxpanchal/yshxpanchal',
+      description: null,
+      language: null,
+      stargazers_count: 0,
+      forks_count: 0,
+      updated_at: '2026-10-07T12:25:29Z',
+      fork: false,
+    },
+    {
+      id: 1388654849,
+      name: 'nightshade-steg',
+      html_url: 'https://github.com/yshxpanchal/nightshade-steg',
+      description: null,
+      language: 'TypeScript',
+      stargazers_count: 0,
+      forks_count: 0,
+      updated_at: '2026-09-28T13:18:48Z',
+      fork: false,
+    },
+    {
+      id: 1387001202,
+      name: 'subnetly',
+      html_url: 'https://github.com/yshxpanchal/subnetly',
+      description: null,
+      language: 'HTML',
+      stargazers_count: 0,
+      forks_count: 0,
+      updated_at: '2026-09-28T12:39:22Z',
+      fork: false,
+    },
+    {
+      id: 1387970950,
+      name: 'Blockdrive',
+      html_url: 'https://github.com/yshxpanchal/Blockdrive',
+      description: null,
+      language: 'JavaScript',
+      stargazers_count: 0,
+      forks_count: 0,
+      updated_at: '2026-09-25T18:10:29Z',
+      fork: false,
+    },
+    {
+      id: 1318617900,
+      name: 'Yevil',
+      html_url: 'https://github.com/yshxpanchal/Yevil',
+      description: null,
+      language: 'Python',
+      stargazers_count: 0,
+      forks_count: 0,
+      updated_at: '2026-08-11T06:11:45Z',
+      fork: false,
+    },
+  ],
 };
 
 export const navLinks = [

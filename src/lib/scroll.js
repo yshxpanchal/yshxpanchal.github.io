@@ -10,7 +10,11 @@ let busy = false;
 
 export const isAutoScrolling = () => busy;
 
-const targetTop = (el) => Math.max(0, Math.round(el.getBoundingClientRect().top + window.scrollY));
+const targetTop = (el) => {
+  const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  const sectionTop = el.getBoundingClientRect().top + window.scrollY;
+  return Math.min(maxScroll, Math.max(0, Math.round(sectionTop)));
+};
 
 // easeInOutCubic: slow start, smooth middle, slow landing.
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
